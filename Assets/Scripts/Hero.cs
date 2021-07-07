@@ -13,8 +13,16 @@ public class Hero : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sprite;
 
+    private static Hero instantiate { get; set; }
+    public void GetDamage()
+    {
+        lives -= 1;
+        Debug.Log(lives);
+    }
+
     private void Awake()
     {
+        Instantiate = this;
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponentInChildren<SpriteRenderer>();
@@ -53,6 +61,9 @@ public class Hero : MonoBehaviour
         get { return (States)anim.GetInteger("state"); }
         set { anim.SetInteger("state", (int)value); }
     }
+
+    public static Hero Instantiate { get => instantiate; set => instantiate = value; }
+
     // Start is called before the first frame update
     void Start()
     {
