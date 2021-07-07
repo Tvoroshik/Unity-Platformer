@@ -6,8 +6,8 @@ public class Hero : MonoBehaviour
 {
     [SerializeField]private float speed = 3f;
     [SerializeField] private int lives = 5;
-    [SerializeField] private float jumpForce = 8f;
-    [SerializeField] private bool isGrounded = false;
+    [SerializeField] private float jumpForce = 10f;
+    private bool isGrounded = false;
 
     private Rigidbody2D rb;
     private Animator anim;
@@ -38,7 +38,7 @@ public class Hero : MonoBehaviour
         Vector3 dir = transform.right * Input.GetAxis("Horizontal");
         transform.position = Vector3.MoveTowards(transform.position, transform.position + dir, speed * Time.deltaTime);
         sprite.flipX = dir.x < 0.0f;
-    }
+       }
 
     private void CheckGround()
     {
@@ -48,7 +48,10 @@ public class Hero : MonoBehaviour
     }
     private void Jump()
     {
+        if (isGrounded) State = States.jump;
+        
         rb.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+                
     }
     public enum States
     {
@@ -62,7 +65,7 @@ public class Hero : MonoBehaviour
         set { anim.SetInteger("state", (int)value); }
     }
 
-    public static Hero Instantiate { get => instantiate; set => instantiate = value; }
+    public static new Hero Instantiate { get => instantiate; set => instantiate = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -74,6 +77,7 @@ public class Hero : MonoBehaviour
     void Update()
     {
         if (isGrounded) State = States.idle;
+
         if (Input.GetButton("Horizontal"))
             Run();
         if (isGrounded && Input.GetButtonDown("Jump"))

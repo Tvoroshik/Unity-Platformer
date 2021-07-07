@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
     }
     private void Update()
     {
-        
+        pos = player.position;
         transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10f);
         pos.z = -10f;
     }
