@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool ground;
     Rigidbody2D rb;
     Animator anim;
     public BoxCollider2D boxCollider2D;
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour
             Crouch();
         if (Input.GetKeyUp(KeyCode.S))
             CrouchOff();
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) && ground == true)
             Jump();
 
     }
