@@ -16,8 +16,7 @@ public class Wizard : MonoBehaviour
     {
         if (GameObject.Find("Player").transform.position.x < transform.position.x)
             sr.flipX = false;
-        else
-            if (GameObject.Find("Player").transform.position.x > transform.position.x)
+        else if (GameObject.Find("Player").transform.position.x > transform.position.x)
             sr.flipX = true;
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -30,12 +29,10 @@ public class Wizard : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             anim.SetInteger("Wizard", 2);
-
             Destroy(gameObject, 0.5f);
-
         }
     }
-  
+
     void SpawnFireball()    
     {
         anim.SetInteger("Wizard", 1);
